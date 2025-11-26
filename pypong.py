@@ -1,16 +1,13 @@
-from idlelib.autocomplete import FORCE
-from idlelib.configdialog import changes
-
 import pygame as pg
 import random as rnd
 
 pg.init()
 
 # CONFIGURAÇÃO DE TELA
-scr_width = 800
-scr_height = 500
-scr = pg.display.set_mode((scr_width, scr_height))
-pg.display.set_caption("PyPong Cassino")
+scr_width = 1280
+scr_height = 720
+scr = pg.display.set_mode((scr_width, scr_height), pg.FULLSCREEN)
+pg.display.set_caption("PyPong Casino")
 
 # MENUS
 screens = {"MENU": 0, "GAME": 1}
@@ -48,8 +45,9 @@ except pg.error as e:
 
 # BALL
 ball_angle = 25
-ball_force = 5
+ball_force_min = 8
 ball_force_max = 20
+ball_force = ball_force_min
 force_x = ball_force
 force_y = ball_force
 
@@ -60,6 +58,7 @@ ball_rect = ball.get_rect(center=(scr_width // 2, scr_height // 2))
 
 # PLAYER
 player = image_resources['player'].convert_alpha()
+player = pg.transform.scale(player, (15, 98))
 player_rect1 = player.get_rect(topleft=(10, scr_height // 2))
 player_rect2 = player.get_rect(topleft=(scr_width - 40, scr_height // 2))
 
@@ -209,7 +208,7 @@ while run:
         # SCORING
         if ball_rect.left <= -80:  # PLAYER 2 WON
             new_score("P2")
-            ball_force = 5
+            ball_force = ball_force_min
             ball_rect.x = scr_width / 2
             ball_rect.y = scr_height / 2
             force_x = -ball_force
@@ -217,7 +216,7 @@ while run:
 
         elif ball_rect.right >= scr_width + 80:  # PLAYER 1 WON
             new_score("P1")
-            ball_force = 5
+            ball_force = ball_force_min
             ball_rect.x = scr_width // 2
             ball_rect.y = scr_height // 2
             force_x = ball_force
@@ -228,8 +227,6 @@ while run:
         score_rect = score_text.get_rect(center=(scr_width // 2, 45))
 
         scr.blit(score_text, score_rect)
-        
-        print(ball_force)
 
         # DRAW SPRITES ON SCREEN
         scr.blit(rotated_ball, rotated_rect)
