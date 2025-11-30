@@ -22,7 +22,7 @@ pg.display.set_icon(icon)
 # Aqui definimos a largura, altura, título da janela e a própria tela do jogo.
 scr_width = 1920
 scr_height = 1080
-scr = pg.display.set_mode((scr_width, scr_height))
+scr = pg.display.set_mode((scr_width, scr_height), pg.FULLSCREEN)
 pg.display.set_caption("PyPong Casino")
 
 # MENUS
@@ -345,3 +345,4 @@ while run:
 
 # Aqui fechamos o jogo caso o laço while se quebre usando "break" ou deixando a variável "run" falsa.
 pg.quit()
+
