@@ -345,4 +345,3 @@ while run:
 
 # Aqui fechamos o jogo caso o laço while se quebre usando "break" ou deixando a variável "run" falsa.
 pg.quit()
-
